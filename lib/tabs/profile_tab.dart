@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../services/storage_service.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -44,6 +45,8 @@ class _ProfileTabState extends State<ProfileTab> {
       return const Center(child: CircularProgressIndicator(color: Colors.cyanAccent));
     }
     
+    final l10n = AppLocalizations.of(context)!;
+    
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -69,10 +72,10 @@ class _ProfileTabState extends State<ProfileTab> {
                   child: Icon(Icons.person, size: 40, color: Colors.black),
                 ),
                 const SizedBox(height: 20),
-                Text('PILOT DASHBOARD', style: GoogleFonts.rajdhani(color: Colors.grey, letterSpacing: 2)),
+                Text(l10n.commandCenter, style: GoogleFonts.rajdhani(color: Colors.grey, letterSpacing: 2)),
                 const SizedBox(height: 10),
                 Text(
-                  '$_totalRuns MISSIONS', 
+                  '$_totalRuns ${l10n.totalMissions}', 
                   style: GoogleFonts.orbitron(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)
                 ),
               ],
@@ -81,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
           
           const SizedBox(height: 40),
           
-          Text('SYSTEM SETTINGS', style: GoogleFonts.rajdhani(color: Colors.cyanAccent, fontSize: 16, letterSpacing: 2)),
+          Text(l10n.systemSettings, style: GoogleFonts.rajdhani(color: Colors.cyanAccent, fontSize: 16, letterSpacing: 2)),
           const SizedBox(height: 20),
           
           // Countdown Settings
@@ -97,7 +100,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('LAUNCH COUNTDOWN', style: GoogleFonts.orbitron(color: Colors.white, fontSize: 16)),
+                    Text(l10n.launchCountdown, style: GoogleFonts.orbitron(color: Colors.white, fontSize: 16)),
                     Text('${_countdownSeconds}s', style: GoogleFonts.orbitron(color: Colors.cyanAccent, fontSize: 24, fontWeight: FontWeight.bold)),
                   ],
                 ),

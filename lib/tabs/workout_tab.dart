@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../providers/timer_provider.dart';
 import '../models/interval_step.dart';
 import '../widgets/warp_background.dart';
@@ -13,6 +14,7 @@ class WorkoutTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final timerProvider = Provider.of<TimerProvider>(context, listen: true);
     final program = timerProvider.program;
+    final l10n = AppLocalizations.of(context)!;
 
     return Stack(
       children: [
@@ -27,6 +29,28 @@ class WorkoutTab extends StatelessWidget {
          Column(
            crossAxisAlignment: CrossAxisAlignment.stretch,
            children: [
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text(
+                         l10n.flightPlan,
+                         style: GoogleFonts.rajdhani(
+                           fontSize: 16,
+                           letterSpacing: 4,
+                           color: Colors.cyanAccent,
+                         ),
+                   ),
+                   IconButton(
+                     icon: const Icon(Icons.edit, color: Colors.white70),
+                     onPressed: () {
+                        Navigator.pushNamed(context, '/editor');
+                     },
+                   )
+                 ],
+               ),
+             ),
              Expanded(
                child: ListView.separated(
                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -77,7 +101,7 @@ class WorkoutTab extends StatelessWidget {
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                Text(
-                                 'SPEED ${step.speedLabel}',
+                                 '${l10n.speed} ${step.speedLabel}',
                                  style: GoogleFonts.orbitron(
                                    fontSize: 18,
                                    fontWeight: FontWeight.bold,
@@ -85,7 +109,7 @@ class WorkoutTab extends StatelessWidget {
                                  ),
                                ),
                                Text(
-                                 'DURATION: ${_formatDuration(step.durationSeconds)}',
+                                 '${l10n.duration}: ${_formatDuration(step.durationSeconds)}',
                                  style: GoogleFonts.rajdhani(
                                    color: Colors.grey,
                                    fontWeight: FontWeight.bold,
@@ -123,7 +147,7 @@ class WorkoutTab extends StatelessWidget {
                      shadowColor: Colors.cyanAccent.withOpacity(0.5),
                    ),
                    child: Text(
-                     'INITIATE SEQUENCE (0:00)',
+                     '${l10n.initiateSequence} (0:00)',
                      style: GoogleFonts.orbitron(
                        fontSize: 18,
                        fontWeight: FontWeight.bold,
@@ -141,21 +165,22 @@ class WorkoutTab extends StatelessWidget {
 
   void _confirmStart(BuildContext context, int index, IntervalStep step) {
     HapticFeedback.mediumImpact();
-    // Use standard flutter dialog but styled
+    final l10n = AppLocalizations.of(context)!;
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF141420),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.cyanAccent)),
-        title: Text('WARP TO INTERVAL ${index+1}?', style: GoogleFonts.orbitron(color: Colors.white)),
+        title: Text('${l10n.warpToInterval} ${index+1}?', style: GoogleFonts.orbitron(color: Colors.white)),
         content: Text(
-          'Starting at Speed ${step.speedLabel}',
+          '${l10n.startingAtSpeed} ${step.speedLabel}',
           style: GoogleFonts.rajdhani(color: Colors.grey, fontSize: 16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('CANCEL', style: GoogleFonts.orbitron(color: Colors.grey)),
+            child: Text(l10n.cancel, style: GoogleFonts.orbitron(color: Colors.grey)),
           ),
           TextButton(
             onPressed: () {
@@ -164,7 +189,7 @@ class WorkoutTab extends StatelessWidget {
               Provider.of<TimerProvider>(context, listen: false).startFromStep(index);
               Navigator.pushNamed(context, '/running');
             },
-            child: Text('ENGAGE', style: GoogleFonts.orbitron(color: Colors.cyanAccent, fontWeight: FontWeight.bold)),
+            child: Text(l10n.engage, style: GoogleFonts.orbitron(color: Colors.cyanAccent, fontWeight: FontWeight.bold)),
           ),
         ],
       ),

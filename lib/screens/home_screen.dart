@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../tabs/workout_tab.dart';
 import '../tabs/history_tab.dart';
 import '../tabs/profile_tab.dart';
@@ -27,14 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
     const ProfileTab(),
   ];
 
-  final List<String> _titles = [
-    'FLIGHT PLAN',
-    'MISSION LOG',
-    'COMMAND CENTER',
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final List<String> _titles = [
+      l10n.flightPlan,
+      l10n.missionLog,
+      l10n.commandCenter,
+    ];
+
     return Scaffold(
       backgroundColor: const Color(0xFF050510),
       appBar: AppBar(
@@ -86,18 +88,18 @@ class _HomeScreenState extends State<HomeScreen> {
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: GoogleFonts.orbitron(fontWeight: FontWeight.bold, fontSize: 12),
           unselectedLabelStyle: GoogleFonts.rajdhani(fontWeight: FontWeight.bold, fontSize: 12),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.flash_on),
-              label: 'RUN',
+              icon: const Icon(Icons.flash_on),
+              label: l10n.tabRun,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: 'HISTORY',
+              icon: const Icon(Icons.calendar_month),
+              label: l10n.tabHistory,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'PROFILE',
+              icon: const Icon(Icons.person),
+              label: l10n.tabProfile,
             ),
           ],
         ),

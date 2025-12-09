@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../providers/timer_provider.dart';
 import '../models/interval_step.dart';
 import '../widgets/cyberpunk_time_picker.dart';
@@ -10,10 +11,12 @@ class ProgramEditorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: const Color(0xFF050510),
       appBar: AppBar(
-        title: Text('EDIT FLIGHT PLAN', style: GoogleFonts.orbitron(letterSpacing: 2)),
+        title: Text(l10n.editFlightPlan, style: GoogleFonts.orbitron(letterSpacing: 2)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -22,9 +25,9 @@ class ProgramEditorScreen extends StatelessWidget {
                 onPressed: () {
                     // Reset to default
                     Provider.of<TimerProvider>(context, listen: false).resetProgramToDefault();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Reset to Standard Program")));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${l10n.reset} Completed")));
                 },
-                child: Text("RESET", style: GoogleFonts.rajdhani(color: Colors.redAccent, fontWeight: FontWeight.bold))
+                child: Text(l10n.reset, style: GoogleFonts.rajdhani(color: Colors.redAccent, fontWeight: FontWeight.bold))
             )
         ],
       ),
@@ -63,11 +66,11 @@ class ProgramEditorScreen extends StatelessWidget {
                     child: Text('${index+1}', style: GoogleFonts.orbitron(color: Colors.cyanAccent)),
                   ),
                   title: Text(
-                    'SPEED: ${step.speedLabel}',
+                    '${l10n.speed}: ${step.speedLabel}',
                     style: GoogleFonts.orbitron(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   subtitle: Text(
-                    'DURATION: ${step.durationSeconds}s',
+                    '${l10n.duration}: ${step.durationSeconds}s',
                     style: GoogleFonts.rajdhani(color: Colors.grey),
                   ),
                   trailing: Row(
@@ -99,13 +102,14 @@ class ProgramEditorScreen extends StatelessWidget {
   void _showEditDialog(BuildContext context, TimerProvider provider, int index, IntervalStep step) {
     final speedController = TextEditingController(text: step.speedLabel);
     int currentDuration = step.durationSeconds;
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E2C),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.cyanAccent)),
-        title: Text('EDIT SEGMENT', style: GoogleFonts.orbitron(color: Colors.white)),
+        title: Text(l10n.editSegment, style: GoogleFonts.orbitron(color: Colors.white)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -113,15 +117,15 @@ class ProgramEditorScreen extends StatelessWidget {
              TextField(
                  controller: speedController,
                  style: const TextStyle(color: Colors.white),
-                 decoration: const InputDecoration(
-                   labelText: 'Speed (e.g. 5 or 8~9)', 
-                   labelStyle: TextStyle(color: Colors.grey),
-                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.cyanAccent)),
+                 decoration: InputDecoration(
+                   labelText: l10n.speed, 
+                   labelStyle: const TextStyle(color: Colors.grey),
+                   enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                   focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.cyanAccent)),
                  ),
              ),
              const SizedBox(height: 20),
-             Text('DURATION', style: GoogleFonts.rajdhani(color: Colors.grey, fontSize: 12)),
+             Text(l10n.duration, style: GoogleFonts.rajdhani(color: Colors.grey, fontSize: 12)),
              const SizedBox(height: 10),
              CyberpunkTimePicker(
                initialDurationSeconds: step.durationSeconds,
@@ -134,7 +138,7 @@ class ProgramEditorScreen extends StatelessWidget {
         actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('CANCEL', style: TextStyle(color: Colors.grey)),
+                child: Text(l10n.cancel, style: const TextStyle(color: Colors.grey)),
             ),
             TextButton(
                 onPressed: () {
@@ -143,7 +147,7 @@ class ProgramEditorScreen extends StatelessWidget {
                     provider.updateStep(index, IntervalStep(durationSeconds: currentDuration, speedLabel: newSpeed));
                     Navigator.pop(context);
                 },
-                child: const Text('SAVE', style: TextStyle(color: Colors.cyanAccent)),
+                child: Text(l10n.save, style: const TextStyle(color: Colors.cyanAccent)),
             ),
         ],
       ),
@@ -153,13 +157,14 @@ class ProgramEditorScreen extends StatelessWidget {
   void _showAddDialog(BuildContext context) {
     final speedController = TextEditingController(text: '6.0');
     int currentDuration = 60;
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1E1E2C),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: const BorderSide(color: Colors.cyanAccent)),
-        title: Text('NEW SEGMENT', style: GoogleFonts.orbitron(color: Colors.white)),
+        title: Text(l10n.newSegment, style: GoogleFonts.orbitron(color: Colors.white)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -167,15 +172,15 @@ class ProgramEditorScreen extends StatelessWidget {
              TextField(
                  controller: speedController,
                  style: const TextStyle(color: Colors.white),
-                 decoration: const InputDecoration(
-                   labelText: 'Speed', 
-                   labelStyle: TextStyle(color: Colors.grey),
-                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.cyanAccent)),
+                 decoration: InputDecoration(
+                   labelText: l10n.speed, 
+                   labelStyle: const TextStyle(color: Colors.grey),
+                   enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+                   focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.cyanAccent)),
                  ),
              ),
              const SizedBox(height: 20),
-             Text('DURATION', style: GoogleFonts.rajdhani(color: Colors.grey, fontSize: 12)),
+             Text(l10n.duration, style: GoogleFonts.rajdhani(color: Colors.grey, fontSize: 12)),
              const SizedBox(height: 10),
              CyberpunkTimePicker(
                initialDurationSeconds: 60,
@@ -188,7 +193,7 @@ class ProgramEditorScreen extends StatelessWidget {
         actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('CANCEL', style: TextStyle(color: Colors.grey)),
+                child: Text(l10n.cancel, style: const TextStyle(color: Colors.grey)),
             ),
             TextButton(
                 onPressed: () {
@@ -198,7 +203,7 @@ class ProgramEditorScreen extends StatelessWidget {
                     provider.addStep(IntervalStep(durationSeconds: currentDuration, speedLabel: newSpeed));
                     Navigator.pop(context);
                 },
-                child: const Text('ADD', style: TextStyle(color: Colors.cyanAccent)),
+                child: Text(l10n.add, style: const TextStyle(color: Colors.cyanAccent)),
             ),
         ],
       ),

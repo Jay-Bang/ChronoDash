@@ -11,8 +11,8 @@ class TimerProvider with ChangeNotifier {
   bool _isRunning = false;
   
   // Audio & Storage
-  final AudioService _audio = AudioService();
-  final StorageService _storage = StorageService();
+  late final AudioService _audio;
+  late final StorageService _storage;
   
   // Countdown State
   bool _isCountdown = false;
@@ -24,9 +24,11 @@ class TimerProvider with ChangeNotifier {
   bool _hasWarned = false;
 
   // Program Data (Mutable)
-  List<IntervalStep> _program = []; // Initialize empty, load in constructor
+  List<IntervalStep> _program = []; 
 
-  TimerProvider() {
+  TimerProvider({AudioService? audioService, StorageService? storageService}) {
+    _audio = audioService ?? AudioService();
+    _storage = storageService ?? StorageService();
     _init();
   }
 
