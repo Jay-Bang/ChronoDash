@@ -11,7 +11,7 @@ class WorkoutTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+    final timerProvider = Provider.of<TimerProvider>(context, listen: true);
     final program = timerProvider.program;
 
     return Stack(

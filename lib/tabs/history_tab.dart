@@ -72,7 +72,7 @@ class _HistoryTabState extends State<HistoryTab> {
               lastDay: DateTime.utc(2030, 3, 14),
               focusedDay: _focusedDay,
               calendarFormat: _calendarFormat,
-              theme: CalendarThemeData(
+              calendarStyle: CalendarStyle(
                 selectedDecoration: const BoxDecoration(
                   color: Colors.pinkAccent,
                   shape: BoxShape.circle,
@@ -85,8 +85,6 @@ class _HistoryTabState extends State<HistoryTab> {
                   color: Color(0xFF00E5FF),
                   shape: BoxShape.circle,
                 ),
-              ),
-              calendarStyle: CalendarStyle(
                 defaultTextStyle: GoogleFonts.rajdhani(color: Colors.white),
                 weekendTextStyle: GoogleFonts.rajdhani(color: Colors.white70),
                 outsideTextStyle: GoogleFonts.rajdhani(color: Colors.grey),

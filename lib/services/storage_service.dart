@@ -32,6 +32,27 @@ class StorageService {
     return prefs.getInt(KEY_COUNTDOWN) ?? 3;
   }
   
+  static const String KEY_PROGRAM = 'custom_program';
+
+  // Save Program
+  Future<void> saveProgram(List<dynamic> programJson) async {
+    final prefs = await SharedPreferences.getInstance();
+    String jsonString = jsonEncode(programJson);
+    await prefs.setString(KEY_PROGRAM, jsonString);
+  }
+
+  // Get Program (returns List of Maps)
+  Future<List<dynamic>?> getProgram() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString(KEY_PROGRAM);
+    if (jsonString == null) return null;
+    try {
+      return jsonDecode(jsonString);
+    } catch (e) {
+      return null;
+    }
+  }
+  
   // Clear all data (Debug)
   Future<void> clearAll() async {
     final prefs = await SharedPreferences.getInstance();

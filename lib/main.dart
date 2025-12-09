@@ -5,6 +5,7 @@ import 'providers/timer_provider.dart';
 import 'screens/splash_screen.dart';
 import 'screens/running_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/program_editor_screen.dart';
 
 void main() {
   runApp(const IntervalWatchApp());
@@ -44,6 +45,7 @@ class IntervalWatchApp extends StatelessWidget {
         routes: {
           '/home': (context) => const HomeScreen(),
           '/running': (context) => const RunningScreen(),
+          '/editor': (context) => const ProgramEditorScreen(),
         },
       ),
     );

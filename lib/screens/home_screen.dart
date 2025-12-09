@@ -45,7 +45,17 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false, // No back button on Home
+        automaticallyImplyLeading: false, 
+        actions: _currentIndex == 0 ? [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.cyanAccent),
+            tooltip: 'Edit Program',
+            onPressed: () {
+               Navigator.pushNamed(context, '/editor');
+            },
+          ),
+          const SizedBox(width: 8),
+        ] : [],
       ),
       body: IndexedStack(
         index: _currentIndex,
