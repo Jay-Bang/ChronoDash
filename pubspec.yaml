@@ -12,7 +12,7 @@ dependencies:
   provider: ^6.1.1
   wakelock_plus: ^1.2.0
   google_fonts: ^6.1.0
-  intl: ^0.19.0
+  intl: ^0.20.2
   cupertino_icons: ^1.0.2
   flutter_tts: ^4.2.3
   shared_preferences: ^2.5.3
@@ -21,7 +21,7 @@ dependencies:
   # Localization
   flutter_localizations:
     sdk: flutter
-  intl: ^0.18.1
+
 
   # Share features
   share_plus: ^10.0.0

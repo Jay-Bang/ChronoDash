@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:interval_watch/l10n/app_localizations.dart';
 import '../services/storage_service.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -42,11 +42,12 @@ class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Center(child: CircularProgressIndicator(color: Colors.cyanAccent));
+      return const Center(
+          child: CircularProgressIndicator(color: Colors.cyanAccent));
     }
-    
+
     final l10n = AppLocalizations.of(context)!;
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -57,7 +58,10 @@ class _ProfileTabState extends State<ProfileTab> {
             padding: const EdgeInsets.all(30),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [const Color(0xFF141420), Colors.cyanAccent.withOpacity(0.1)],
+                colors: [
+                  const Color(0xFF141420),
+                  Colors.cyanAccent.withOpacity(0.1)
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -72,21 +76,26 @@ class _ProfileTabState extends State<ProfileTab> {
                   child: Icon(Icons.person, size: 40, color: Colors.black),
                 ),
                 const SizedBox(height: 20),
-                Text(l10n.commandCenter, style: GoogleFonts.rajdhani(color: Colors.grey, letterSpacing: 2)),
+                Text(l10n.commandCenter,
+                    style: GoogleFonts.rajdhani(
+                        color: Colors.grey, letterSpacing: 2)),
                 const SizedBox(height: 10),
-                Text(
-                  '$_totalRuns ${l10n.totalMissions}', 
-                  style: GoogleFonts.orbitron(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)
-                ),
+                Text('$_totalRuns ${l10n.totalMissions}',
+                    style: GoogleFonts.orbitron(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
               ],
             ),
           ),
-          
+
           const SizedBox(height: 40),
-          
-          Text(l10n.systemSettings, style: GoogleFonts.rajdhani(color: Colors.cyanAccent, fontSize: 16, letterSpacing: 2)),
+
+          Text(l10n.systemSettings,
+              style: GoogleFonts.rajdhani(
+                  color: Colors.cyanAccent, fontSize: 16, letterSpacing: 2)),
           const SizedBox(height: 20),
-          
+
           // Countdown Settings
           Container(
             padding: const EdgeInsets.all(20),
@@ -100,8 +109,14 @@ class _ProfileTabState extends State<ProfileTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(l10n.launchCountdown, style: GoogleFonts.orbitron(color: Colors.white, fontSize: 16)),
-                    Text('${_countdownSeconds}s', style: GoogleFonts.orbitron(color: Colors.cyanAccent, fontSize: 24, fontWeight: FontWeight.bold)),
+                    Text(l10n.launchCountdown,
+                        style: GoogleFonts.orbitron(
+                            color: Colors.white, fontSize: 16)),
+                    Text('${_countdownSeconds}s',
+                        style: GoogleFonts.orbitron(
+                            color: Colors.cyanAccent,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
                 Slider(
@@ -118,6 +133,24 @@ class _ProfileTabState extends State<ProfileTab> {
                   style: GoogleFonts.rajdhani(color: Colors.grey),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 50,
+            child: OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/settings');
+              },
+              icon: const Icon(Icons.settings, color: Colors.cyanAccent),
+              label: Text("ADVANCED SETTINGS",
+                  style: GoogleFonts.orbitron(
+                      color: Colors.cyanAccent, letterSpacing: 1)),
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: Colors.cyanAccent.withOpacity(0.5)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+              ),
             ),
           ),
         ],

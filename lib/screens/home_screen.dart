@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:interval_watch/l10n/app_localizations.dart';
 import '../tabs/workout_tab.dart';
 import '../tabs/history_tab.dart';
 import '../tabs/profile_tab.dart';
@@ -47,17 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false, 
-        actions: _currentIndex == 0 ? [
-          IconButton(
-            icon: const Icon(Icons.edit, color: Colors.cyanAccent),
-            tooltip: 'Edit Program',
-            onPressed: () {
-               Navigator.pushNamed(context, '/editor');
-            },
-          ),
-          const SizedBox(width: 8),
-        ] : [],
+        automaticallyImplyLeading: false,
+        actions: _currentIndex == 0
+            ? [
+                IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.cyanAccent),
+                  tooltip: 'Edit Program',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/editor');
+                  },
+                ),
+                const SizedBox(width: 8),
+              ]
+            : [],
       ),
       body: IndexedStack(
         index: _currentIndex,
@@ -86,8 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedItemColor: Colors.grey,
           showUnselectedLabels: true,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: GoogleFonts.orbitron(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: GoogleFonts.rajdhani(fontWeight: FontWeight.bold, fontSize: 12),
+          selectedLabelStyle:
+              GoogleFonts.orbitron(fontWeight: FontWeight.bold, fontSize: 12),
+          unselectedLabelStyle:
+              GoogleFonts.rajdhani(fontWeight: FontWeight.bold, fontSize: 12),
           items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.flash_on),
